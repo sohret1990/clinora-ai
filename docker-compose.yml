@@ -1,0 +1,11 @@
+services:
+  clinora_ai_client:
+    container_name: clinora_ai_client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    restart: unless-stopped
+    env_file:
+      - .env
