@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+<<<<<<< HEAD
 import type { MessageImage } from "../types/Message";
+=======
+import type { MessageImage } from '../types';
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
 interface MessageRowProps {
   role: 'user' | 'ai';
   content: string;

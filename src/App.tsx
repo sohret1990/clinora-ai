@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+<<<<<<< HEAD
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage, clearMessages, updateMessageContent } from './store/actions/chatActions';
 import { fetchMessages } from './store/actions/chatAsyncActions';
@@ -17,6 +18,14 @@ import type { UserProfile } from "./types/UserProfile.ts";
 import { streamAi } from './ai-api/groqApi';
 
 
+=======
+import Sidebar from './components/Sidebar';
+import ChatShell from './components/ChatShell';
+import LoginModal from './components/LoginModal.tsx';
+import type { AuthPayload, HistoryItem, Message, MessageImage, PersistedChatState, StoredAccount, UserProfile } from './types';
+import { streamAi } from './ai-api/groqApi';
+
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
 const MAX_CHARS = 1000;
 const AUTH_STORAGE_KEY = 'clinora-auth-user';
 const ACCOUNT_STORAGE_PREFIX = 'clinora-account:';
@@ -142,7 +151,11 @@ function getNextMessageId(messages: Message[]): number {
 function getDefaultChatState(): PersistedChatState {
     return {
         messages: [createWelcomeMessage(1)],
+<<<<<<< HEAD
         model: 'llama-3.3-70b-versatile',
+=======
+        model: 'gpt',
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
     };
 }
 
@@ -168,7 +181,11 @@ function loadChatState(user: UserProfile | null): PersistedChatState {
 
         return {
             messages: messages.length > 0 ? messages : getDefaultChatState().messages,
+<<<<<<< HEAD
             model: typeof parsed.model === 'string' ? parsed.model : 'llama-3.3-70b-versatile',
+=======
+            model: typeof parsed.model === 'string' ? parsed.model : 'gpt',
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
         };
     } catch {
         return getDefaultChatState();
@@ -193,8 +210,12 @@ export default function App() {
     const { user: initialUser, chatState: initialChatState } = initialStateRef.current;
     const [theme, setTheme] = useState<string>(() => localStorage.getItem('theme') ?? 'light');
     const [currentUser, setCurrentUser] = useState<UserProfile | null>(initialUser);
+<<<<<<< HEAD
     const dispatch = useDispatch<AppDispatch>();
     const messages = useSelector((state: RootState) => state.chat.messages);
+=======
+    const [messages, setMessages] = useState<Message[]>(initialChatState.messages);
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
     const [showSuggestions, setShowSuggestions] = useState<boolean>(initialChatState.messages.length === 1);
     const [input, setInput] = useState<string>('');
     const [pendingImage, setPendingImage] = useState<MessageImage | null>(null);
@@ -204,14 +225,22 @@ export default function App() {
     const idRef = useRef<number>(getNextMessageId(initialChatState.messages));
 
     const applyChatState = useCallback((chatState: PersistedChatState): void => {
+<<<<<<< HEAD
         dispatch(clearMessages());
         chatState.messages.forEach((msg) => dispatch(addMessage(msg)));
+=======
+        setMessages(chatState.messages);
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
         setModel(chatState.model);
         setShowSuggestions(chatState.messages.length === 1);
         setInput('');
         setIsLoading(false);
         idRef.current = getNextMessageId(chatState.messages);
+<<<<<<< HEAD
     }, [dispatch]);
+=======
+    }, []);
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
 
     useEffect(() => {
         document.body.className = theme === 'dark' ? 'dark-mode' : '';
@@ -234,6 +263,7 @@ export default function App() {
 
     const toggleTheme = (): void => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
 
+<<<<<<< HEAD
     // Redux version of addMessage
 
     const handleAddMessage = useCallback((role: 'user' | 'ai', content: string): void => {
@@ -245,6 +275,14 @@ export default function App() {
     const handleFetchMessages = useCallback(() => {
         dispatch(fetchMessages());
     }, [dispatch]);
+=======
+    const addMessage = useCallback((role: 'user' | 'ai', content: string): void => {
+        setMessages((prev) => [
+            ...prev,
+            { role, content, time: nowTime(), id: idRef.current++, isMarked: false },
+        ]);
+    }, []);
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
 
     const handleImageSelect = useCallback(async (file: File | null): Promise<void> => {
         if (!file) {
@@ -284,11 +322,20 @@ export default function App() {
         const userMsgId = idRef.current++;
         const aiMsgId = idRef.current++;
 
+<<<<<<< HEAD
         // Add user message + empty AI placeholder in Redux
         const userMsg: Message = { role: 'user', content: text, time: nowTime(), id: userMsgId, isMarked: false, image: attachedImage ?? undefined };
         const aiMsg: Message = { role: 'ai', content: '', time: nowTime(), id: aiMsgId, isMarked: false };
         dispatch(addMessage(userMsg));
         dispatch(addMessage(aiMsg));
+=======
+        // Add user message + empty AI placeholder in one state update
+        setMessages((prev) => [
+            ...prev,
+            { role: 'user', content: text, time: nowTime(), id: userMsgId, isMarked: false, image: attachedImage ?? undefined },
+            { role: 'ai', content: '', time: nowTime(), id: aiMsgId, isMarked: false },
+        ]);
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
 
         try {
             const requestText = attachedImage
@@ -296,6 +343,7 @@ export default function App() {
                 : text;
 
             await streamAi(requestText, (delta, accumulated) => {
+<<<<<<< HEAD
                 dispatch(updateMessageContent({ id: aiMsgId, content: accumulated, isMarked: true }));
             }, model);
         } catch {
@@ -309,17 +357,67 @@ const handleNewChat = (): void => {
     dispatch(clearMessages());
     const welcomeMsg = createWelcomeMessage(idRef.current++);
     dispatch(addMessage(welcomeMsg));
+=======
+                // Bu hissə hər bir hərf/söz gəldikdə işə düşür
+                setMessages((prev) =>
+                    prev.map((msg) =>
+                        msg.id === aiMsgId ? { ...msg, content: accumulated, isMarked: true } : msg,
+                    ),
+                );
+            }, model);
+
+
+
+
+    //   const finalReply = await streamAi(text, model, (_delta, accumulated) => {
+    //     console.log('Received chunk:', { delta: _delta, accumulated });
+    //     setMessages((prev) =>
+    //       prev.map((msg) =>
+    //         msg.id === aiMsgId ? { ...msg, content: accumulated } : msg,
+    //       ),
+    //     );
+    //   });
+
+    //   // Fallback for non-streaming providers: commit final response to the same AI message.
+    //   setMessages((prev) =>
+    //     prev.map((msg) =>
+    //       msg.id === aiMsgId ? { ...msg, content: finalReply, isMarked: true } : msg,
+    //     ),
+    //   );
+    } catch {
+        setMessages((prev) =>
+            prev.map((msg) =>
+                msg.id === aiMsgId
+                    ? { ...msg, content: 'Xəta baş verdi. Groq API açarınızı və internet bağlantınızı yoxlayın.' }
+                    : msg,
+            ),
+        );
+    } finally {
+        setIsLoading(false);
+    }
+};
+
+const handleNewChat = (): void => {
+    setMessages([createWelcomeMessage(idRef.current++)]);
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
     setShowSuggestions(true);
     setInput('');
     setPendingImage(null);
 };
 
+<<<<<<< HEAD
     const handleClear = (): void => {
         if (!confirm('Bütün mesajları silmək istədiyinizə əminsiniz?')) return;
         dispatch(clearMessages());
         const welcomeMsg = createWelcomeMessage(idRef.current++);
         dispatch(addMessage(welcomeMsg));
     };
+=======
+const handleClear = (): void => {
+    if (!confirm('Bütün mesajları silmək istədiyinizə əminsiniz?')) return;
+    handleNewChat();
+};
+>>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
 
 const handleLogin = (payload: AuthPayload): { success: boolean; error?: string } => {
     const identifier = normalizeIdentifier(payload.identifier);
