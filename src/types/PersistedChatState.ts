@@ -1,4 +1,7 @@
 import { Message } from "./Message";
-export interface ChatState {
+
+
+export interface PersistedChatState {
   messages: Message[];
+  model: string;
 }

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import type { Message, MessageImage, UserProfile } from '../types';
+import type { Message, MessageImage } from "../types/Message";
+import type { UserProfile } from "../types/UserProfile";
 import MessageRow from './MessageRow';
 import SuggestionChips from './SuggestionChips';
 

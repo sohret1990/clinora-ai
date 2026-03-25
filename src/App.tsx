@@ -8,7 +8,12 @@ import type { ChatState } from './types/chatTypes';
 import Sidebar from './components/Sidebar';
 import ChatShell from './components/ChatShell';
 import LoginModal from './components/LoginModal.tsx';
-import type { AuthPayload, HistoryItem, Message, MessageImage, PersistedChatState, StoredAccount, UserProfile } from './types';
+import type { StoredAccount } from "./types/StoredAccount.ts";
+import type { PersistedChatState } from "./types/PersistedChatState.ts";
+import type { Message, MessageImage } from "./types/Message.ts";
+import type { AuthPayload } from "./types/AuthPayload.ts";
+import type { HistoryItem } from "./types/HistoryItem.ts";
+import type { UserProfile } from "./types/UserProfile.ts";
 import { streamAi } from './ai-api/groqApi';
 
 

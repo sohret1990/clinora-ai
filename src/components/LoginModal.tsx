@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import type { AuthPayload } from '../types';
+import type { AuthPayload } from "../types/AuthPayload";
 
 interface LoginModalProps {
   isOpen: boolean;

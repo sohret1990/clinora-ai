@@ -1,5 +1,6 @@
 import React from 'react';
-import type { HistoryItem, UserProfile } from '../types';
+import type { HistoryItem } from "../types/HistoryItem";
+import type { UserProfile } from "../types/UserProfile";
 
 interface SidebarProps {
   theme: string;

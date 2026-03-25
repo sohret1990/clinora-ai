@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Message } from '../../types';
+import { Message } from "../../types/Message";
 
 export const addMessage = createAction<Message>('chat/addMessage');
 export const clearMessages = createAction('chat/clearMessages');
