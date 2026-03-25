@@ -1,10 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-<<<<<<< HEAD
-import type { Message, MessageImage } from "../types/Message";
-import type { UserProfile } from "../types/UserProfile";
-=======
 import type { Message, MessageImage, UserProfile } from '../types';
->>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
 import MessageRow from './MessageRow';
 import SuggestionChips from './SuggestionChips';
 
@@ -139,10 +134,6 @@ export default function ChatShell({
                 aria-label="Model seç"
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onModelChange(e.target.value)}
               >
-<<<<<<< HEAD
-                <option value="llama-3.3-70b-versatile">LLaMA 3.3 70B Versatile</option>
-=======
->>>>>>> 1868c4ff4b9f6e5f5b2af73aed29b2eba1bb0c2e
                 <option value="gpt">GPT-5.3-Codex</option>
                 <option value="gemini">Gemini Pro</option>
                 <option value="custom">Custom Model</option>
